@@ -1,0 +1,65 @@
+﻿@model DocumentStorage.Models.FilterViewModel
+
+@using (Html.BeginForm("ShowFileList", "File", FormMethod.Get))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Поиск по заданным параметрам</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CreationDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            @*<div class="col-md-10">*@
+                <div class='input-group date col-sm-3' id='CreationDaate'>
+                    @Html.EditorFor(model => model.CreationDate, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+
+                    @Html.ValidationMessageFor(model => model.CreationDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Поиск" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+    <script type="text/javascript">
+        //var date = new Date();
+        //date.
+        $(function () {
+            $('#CreationDate').datetimepicker({
+               // value: 'Model.Today',
+                defaultDate: '@Model.Today',
+                minDate: '2013/12/03',
+            //yearRange = '2010-2030',
+                format: 'MM/DD/YYYY'
+            //showTodayButton: true,
+                // 
+            }).on('dp.change', function (e) {
+                    $(this).data('DateTimePicker').hide();
+                });
+            $("#setDate").click(function () {
+                $('#CreationDate').data("DateTimePicker").date(moment('15.11.2017', 'DD/MM/YYYY'));
+            });
+    });
+    </script>
+

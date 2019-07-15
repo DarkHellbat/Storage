@@ -1,0 +1,68 @@
+﻿@model IEnumerable<DocumentStorage.Models.Models.File>
+@using DocumentStorage.Extensions
+@using DocumentStorage.Models.Filters
+
+
+<!DOCTYPE html>
+
+
+    <meta name="viewport" content="width=device-width" />
+    <title>Список файлов</title>
+
+    <div style="padding: 20px;">
+        @Html.Partial("Filter", new DocumentStorage.Models.FilterViewModel())
+      @*  @Html.Partial("FileList", new DocumentStorage.Models.FileListViewModel())*@
+    </div>
+
+    <p>
+        @Html.ActionLink("Добавить новый файл", "Create")
+    </p>
+    <table class="table" border="1" align="center" >
+        <tr>
+            @if (Model.Count() != 0)
+    {
+        <td>
+
+            @Html.SortLink("Название", "Name", "ShowFileList", "File", new RouteValueDictionary { { "id", Model.First().Author.Id } })
+        </td>
+        @*<td>Текст</td>*@
+        <td>
+            @Html.SortLink("Дата создания", "CreationDate", "ShowFileList", "File", new RouteValueDictionary { { "id", Model.First().Author.Id } })
+        </td>
+        <td>
+            @Html.SortLink("Тип файла", "Type", "ShowFileList", "File", new RouteValueDictionary { { "id", Model.First().Author.Id } })
+        </td>
+        <td></td>
+            }
+            else
+            {
+                @Html.Label("Похоже, что у вас пока нет сохраненных файлов");
+            }
+            </td>
+
+            
+        </tr>
+
+
+        @foreach (var n in Model)
+{
+         if (n.Name.Length > 30)
+        {
+             n.Name = n.Name.Remove(31)+"...";
+         }
+
+        <tr>
+            <td>@n.Name</td>
+            @*<td>@n.Text</td>*@
+            <td>@n.CreationDate</td>
+            <td>@n.Type</td>
+            @*<td>n.</td>*@
+            <td>@Html.ActionLink("Скачать файл", "GetFile", "File", new { id = n.Id }, null)</td>
+           @* <td>@Html.ActionLink("Открыть файл", "OpenFile", "Notes", new { id = n.Id }, null)</td>*@
+
+        </tr>
+}
+
+
+    </table>
+
