@@ -13,6 +13,7 @@ using DocumentStorage.Models.Filters;
 using static DocumentStorage.Models.FilterViewModel;
 using NHibernate;
 using NHibernate.Transform;
+using System.IO;
 
 namespace DocumentStorage.Controllers
 {
@@ -47,16 +48,16 @@ namespace DocumentStorage.Controllers
         [HttpPost]
         public ActionResult Create(FileCreationViewModel model)
         {
-            var path = @"C:\Users\User\source\repos\DocumentStorage\DocumentStorage\Content\Files";
+            var path = AppDomain.CurrentDomain.BaseDirectory;//@"C:\Users\User\source\repos\DocumentStorage\DocumentStorage\Content\Files";
             //var userRepository = new UserRepository();
-            var file = new File
+            var file = new Models.Models.File
             {
                 Author = userRepository.GetCurrentUser(),
                 CreationDate = DateTime.Now,
                 // Content = model.File.InputStream.ToByteArray(),
                 Name = model.File.FileName,
                 Type = model.File.ContentType,
-                Path = String.Format(@"{0}\{1}", path, model.File.FileName)
+                Path = Path.Combine(path, @"Content\Files", model.File.FileName)// String.Format(@"{0}\{1}", path, model.File.FileName)
             };
            // model.File.InputStream
            using(var fileStream = System.IO.File.Create(file.Path))
