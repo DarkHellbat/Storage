@@ -10,6 +10,9 @@ using DocumentStorage.Models;
 using DocumentStorage.Models.Models;
 using DocumentStorage.Utils;
 using DocumentStorage.Models.Filters;
+using static DocumentStorage.Models.FilterViewModel;
+using NHibernate;
+using NHibernate.Transform;
 
 namespace DocumentStorage.Controllers
 {
@@ -17,10 +20,12 @@ namespace DocumentStorage.Controllers
     {
         private FileRepository repository;
         private UserRepository userRepository;
-        public FileController(FileRepository repository, UserRepository userRepository)
+        protected ISession session;
+        public FileController(FileRepository repository, UserRepository userRepository, ISession session)
         {
             this.repository = repository;
             this.userRepository = userRepository;
+            this.session = session;
         }
         public ActionResult ShowFileList(FileFilter filter, FetchOptions options)
         {
@@ -59,8 +64,27 @@ namespace DocumentStorage.Controllers
                 model.File.InputStream.Seek(0, System.IO.SeekOrigin.Begin);
                 model.File.InputStream.CopyTo(fileStream);
             }
+            try
+            {
+                var result = session.CreateSQLQuery("exec sp_InsertFile :Name, :Type, :CreationDate, :Author_id, :Path")
+                   // .AddEntity(typeof(StoredFile))
+                   // .SetResultTransformer(Transformers.)
+                    .SetParameter("Name", file.Name)
+                    .SetParameter("Type", file.Type)
+                    .SetParameter("CreationDate", file.CreationDate)
+                    .SetParameter("Author_id", file.Author.Id)
+                    .SetParameter("Path", file.Path)
+                    ;
+                result.ExecuteUpdate();
+               // session.Save(result);
+               var res = result;
+                    //.List<MyDomainObject>();
+            }
+            catch
+            {
+                repository.Save(file);
+            }
             
-            repository.Save(file);
 
             return RedirectToAction("ShowFileList", "File");
         }

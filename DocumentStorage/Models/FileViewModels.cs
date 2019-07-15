@@ -43,5 +43,9 @@ namespace DocumentStorage.Models
         {
             Today = DateTime.Today;
         }
+        public class StoredFile:File
+        {
+            public virtual bool Result { get; set; }
+        }
     }
 }

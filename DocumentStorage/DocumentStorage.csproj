@@ -370,8 +370,6 @@
     <Content Include="Views\Shared\EditorTemplates\HttpPostedFileBase.cshtml" />
     <Content Include="Views\Shared\SortLink.cshtml" />
     <Content Include="Views\File\OpenFile.cshtml" />
-    <Content Include="Views\File\Filter1.cshtml" />
-    <Content Include="Views\File\FilterЩдв.cshtml" />
     <Content Include="Views\File\Filter.cshtml" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
