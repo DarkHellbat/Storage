@@ -1,7 +1,7 @@
 use DocStorage
 go
 CREATE PROCEDURE [dbo].[sp_InsertFile]
---@Result bit,
+
     @Name nvarchar(100),
     @Type nvarchar(50),
 	@CreationDate DateTime2,

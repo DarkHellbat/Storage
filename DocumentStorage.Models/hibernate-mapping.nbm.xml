@@ -1,6 +1,58 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?> 
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"> 
-    <sql-query name="StoredProcedure"> 
-    exec StoredProcedure :productId 
+    <sql-query name="InsertFile" callable="true"> 
+    exec sp_InsertFile @Name =:Name, @Type=:Type, @CreationDate=:CreationDate, @Author_id=:Author_id, @Path=:Path    
+   <!--exec sp_InsertFile :Name, :Type, :CreationDate, :Author_id, :Path 
+  DECLARE @my_id bigint EXECUTE dbo.InsertMyEntity @name = ?, @comment = ?, @my_id = @my_id OUT SELECT @my_id </sql-insert>  
+  --> 
     </sql-query> 
+<sql-query name="CreateProcedure">
+  <query-param name="Name" type="System.String"/>
+  <query-param name="Type" type="System.String"/>
+    <query-param name="CreationDate" type="System.DateTime"/>
+  <query-param name="Author_Id" type="System.Int64"/>
+    <query-param name="Path" type="System.String"/>
+
+    <return-scalar column ="Return Value"  type ="System.Int64"/>
+   
+  
+
+ <!--<return  alias="file" class="DocumentStorage.Models.Models.File"/>-
+go
+declare   @Name nvarchar(100),
+    @Type nvarchar(50),
+	@CreationDate DateTime2,
+	@Author_id bigint,
+	@Path nvarchar(255)
+CREATE PROCEDURE [dbo].[sp_InsertFile]
+
+  
+AS
+    INSERT INTO {file} ({file}.Name, {file}.Type, {file}.CreationDate, {file}.Author_id, {file}.Path )
+    VALUES (?,?,?,?,?) <!-:Name,:Type,	:CreationDate,	:Author_id,	:Path) SELECT SCOPE_IDENTITY()-->>
+  
+   
+
+</sql-query>
+<!--
+ <return alias="person" class="eg.Person"/>
+    SELECT {person}.NAME AS {person.name},
+           {person}.AGE AS {person.age},
+           {person}.SEX AS {person.sex}
+    FROM PERSON {person} WHERE {person}.NAME LIKE 'Hiber%'
+class name="File">
+    <id name="Id">
+        <generator class="identity"/>
+    </id>
+    <property name="name" not-null="true"/>
+    <sql-insert>INSERT INTO PERSON (NAME, ID) VALUES ( UPPER(?), ? )</sql-insert>
+    <sql-update>UPDATE PERSON SET NAME=UPPER(?) WHERE ID=?</sql-update>
+    <sql-delete>DELETE FROM PERSON WHERE ID=?</sql-delete>
+</class>
+  Note that the custom sql-insert will not be used if you use identity to generate identifier values for the class
+
+DECLARE @my_id  bigint
+      EXECUTE dbo.InsertMyEntity @name = ?, @comment = ?, @my_id = @my_id OUT
+
+-->
 </hibernate-mapping> 

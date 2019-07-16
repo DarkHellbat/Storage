@@ -14,6 +14,7 @@ using static DocumentStorage.Models.FilterViewModel;
 using NHibernate;
 using NHibernate.Transform;
 using System.IO;
+using System.Diagnostics;
 
 namespace DocumentStorage.Controllers
 {
@@ -48,6 +49,15 @@ namespace DocumentStorage.Controllers
         [HttpPost]
         public ActionResult Create(FileCreationViewModel model)
         {
+            try
+            {//var CreateProcedure = @"use DocStorage go CREATE PROCEDURE [dbo].[sp_InsertFile] @Name nvarchar(100), @Type nvarchar(50), @CreationDate DateTime2, @Author_id bigint, @Path nvarchar(255) AS INSERT INTO [File] (Name, Type, CreationDate, Author_id, Path ) VALUES ( @Name, @Type, @CreationDate, @Author_id, @Path) SELECT SCOPE_IDENTITY() GO";
+                var result = session.GetNamedQuery("CreateProcedure");
+                var a = result;
+                result.ExecuteUpdate();
+
+            }
+            catch (Exception ex)
+            { }
             var path = AppDomain.CurrentDomain.BaseDirectory;//@"C:\Users\User\source\repos\DocumentStorage\DocumentStorage\Content\Files";
             //var userRepository = new UserRepository();
             var file = new Models.Models.File

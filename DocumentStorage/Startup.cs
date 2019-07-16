@@ -36,8 +36,9 @@ namespace DocumentStorage
                 var cfg = Fluently.Configure()
                                 .Database(MsSqlConfiguration.MsSql2012
                                 .ConnectionString(connectionSttring.ConnectionString))
-                                .Mappings( m => { m.FluentMappings.AddFromAssemblyOf<User>();
-                                    //m.HbmMappings.AddFromAssemblyOf<User>(); -- раскомментить если работа через nhm.xml
+                                .Mappings( m => {
+                                    m.FluentMappings.AddFromAssemblyOf<User>();
+                                    m.HbmMappings.AddFromAssemblyOf<User>();// -- раскомментить если работа через nhm.xml
                                 })
                                 .CurrentSessionContext("call");
                 var schemaExport = new SchemaUpdate(cfg.BuildConfiguration());
