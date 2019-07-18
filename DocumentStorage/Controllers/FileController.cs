@@ -66,9 +66,9 @@ namespace DocumentStorage.Controllers
                 Author = userRepository.GetCurrentUser(),
                 CreationDate = DateTime.Now,
                 // Content = model.File.InputStream.ToByteArray(),
-                Name = model.File.FileName,
+                Name = model.Name,
                 Type = model.File.ContentType,
-                Path = Path.Combine(path, @"Content\Files", model.File.FileName)// String.Format(@"{0}\{1}", path, model.File.FileName)
+                Path = Path.Combine(path, @"Content\Files", DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")+ model.File.FileName)// String.Format(@"{0}\{1}", path, model.File.FileName)
             };
            // model.File.InputStream
            using(var fileStream = System.IO.File.Create(file.Path))
@@ -112,7 +112,7 @@ namespace DocumentStorage.Controllers
             string contentType = f.Type;
             FileStreamResult result = new FileStreamResult(System.IO.File.Open(f.Path, System.IO.FileMode.Open), contentType);
 
-            result.FileDownloadName = f.Name;
+            result.FileDownloadName = DateTime.Now.ToString().Replace("/", "_").Replace(":", "_")+ f.Name;
             return result;
         }
         public ActionResult OpenFile (long id)
