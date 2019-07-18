@@ -30,7 +30,7 @@ namespace DocumentStorage
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
-                      "~/Content//bootstrap-datetimepicker.js"
+                      "~/Content/bootstrap-datetimepicker.css"
                       ));
         }
     }

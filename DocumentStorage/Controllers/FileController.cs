@@ -15,6 +15,7 @@ using NHibernate;
 using NHibernate.Transform;
 using System.IO;
 using System.Diagnostics;
+using NHibernate.Cfg;
 
 namespace DocumentStorage.Controllers
 {
@@ -23,11 +24,19 @@ namespace DocumentStorage.Controllers
         private FileRepository repository;
         private UserRepository userRepository;
         protected ISession session;
-        public FileController(FileRepository repository, UserRepository userRepository, ISession session)
+        public NHibernate.Cfg.Configuration config;
+        private static readonly Dictionary<ISessionFactory, NHibernate.Cfg.Configuration> _mappings = new Dictionary<ISessionFactory, NHibernate.Cfg.Configuration>();
+       
+        public FileController(FileRepository repository, UserRepository userRepository, ISession session, ISessionFactory sessionFactory)
         {
             this.repository = repository;
             this.userRepository = userRepository;
             this.session = session;
+         //   config = _mappings[sessionFactory];
+            //config = _mappings[sessionFactory];
+          // FileRepository.AddMappingsFromFilesystem(config);
+
+            // this.config = session.Connection]]
         }
         public ActionResult ShowFileList(FileFilter filter, FetchOptions options)
         {
@@ -49,15 +58,7 @@ namespace DocumentStorage.Controllers
         [HttpPost]
         public ActionResult Create(FileCreationViewModel model)
         {
-            try
-            {//var CreateProcedure = @"use DocStorage go CREATE PROCEDURE [dbo].[sp_InsertFile] @Name nvarchar(100), @Type nvarchar(50), @CreationDate DateTime2, @Author_id bigint, @Path nvarchar(255) AS INSERT INTO [File] (Name, Type, CreationDate, Author_id, Path ) VALUES ( @Name, @Type, @CreationDate, @Author_id, @Path) SELECT SCOPE_IDENTITY() GO";
-                var result = session.GetNamedQuery("CreateProcedure");
-                var a = result;
-                result.ExecuteUpdate();
-
-            }
-            catch (Exception ex)
-            { }
+           
             var path = AppDomain.CurrentDomain.BaseDirectory;//@"C:\Users\User\source\repos\DocumentStorage\DocumentStorage\Content\Files";
             //var userRepository = new UserRepository();
             var file = new Models.Models.File

@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Criterion;
 using System;
 using System.Collections.Generic;
+//using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -53,6 +54,16 @@ namespace DocumentStorage.Models.Repository
                 }
             }
         }
-       
-                }
+       public static void AddMappingsFromFilesystem(NHibernate.Cfg.Configuration nhConfiguration)
+        {
+            var directory = System.IO.Directory.GetCurrentDirectory();
+            var hmbFiles = System.IO.Directory.GetFiles(directory, "*.hbm.xml", System.IO.SearchOption.TopDirectoryOnly);
+
+            foreach (var file in hmbFiles)
+            {
+                nhConfiguration.AddFile(file);
+            }
+        }
+
+    }
 }

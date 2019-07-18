@@ -122,3 +122,10 @@ C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\obj\Debug\Do
 C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\obj\Debug\DocumentStorage.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\obj\Debug\DocumentStorage.dll
 C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\obj\Debug\DocumentStorage.pdb
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Net.Http.Formatting.dll
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Web.Http.dll
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Web.Http.WebHost.dll
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\Newtonsoft.Json.xml
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Net.Http.Formatting.xml
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Web.Http.xml
+C:\Users\User\Desktop\Storage-master\Storage-master\DocumentStorage\bin\System.Web.Http.WebHost.xml
